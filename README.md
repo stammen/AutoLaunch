@@ -184,7 +184,7 @@ We now need to add LauncherExtension.exe as a start up task to the UWP app.
 
 * Build the solution and run the UWP app. Use the Debug/x86 or Debug/x64 configuration.
 
-* Restart the computer. Your UWP app should run and come to the foreground after you login.
+* Restart the computer. Your UWP app should run and come to the foreground after you login. It may take several seconds to appear after login.
 
 
 
