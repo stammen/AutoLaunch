@@ -38,12 +38,7 @@
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
-    <rescap:Capability Name="backgroundMediaPlayback" />
-    <rescap:Capability Name="extendedBackgroundTaskTime" />
-    <rescap:Capability Name="extendedExecutionBackgroundAudio" />
-    <rescap:Capability Name="extendedExecutionBackgroundAudioCapture" />
     <rescap:Capability Name="runFullTrust" />
     <rescap:Capability Name="appDiagnostics" />
-    <DeviceCapability Name="microphone" />
   </Capabilities>
 </Package>

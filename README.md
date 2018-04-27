@@ -54,6 +54,8 @@ In order to implement this scenario you will need to do the following
 
 * Select Visual C# | Windows Classic Desktop | Windows Form App. Name the project LauncherExtension. Select at least .NET framework 4.6.1.
 
+###  Modify the LauncherExtension project
+
 * In the LauncherExtension project, delete the Form1.cs file
 
 * Right-click on the References and select Add Reference. We need to add a few references so we can use some UWP functions.
@@ -94,3 +96,94 @@ namespace DesktopExtension
     }
 }
 ```
+
+###  Modify the UWP App project
+
+We need to add the LauncherExtension.exe to the AppX created by the UWP project. One way to automate this is to do the following:
+
+* Right-click on the UWP project and select "Unload project"
+
+* Right-click on the UWP project and select "Edit project"
+
+* Add the following xml near the end of the project xml
+
+```xml
+  <ItemGroup Label="DesktopExtensions">
+    <Content Include="$(SolutionDir)\LauncherExtension\bin\$(Configuration)\LauncherExtension.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(SolutionDir)\LauncherExtension\bin\$(Configuration)\LauncherExtension.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+```
+
+Note: If you named your Win32 app with a different project name, replace LauncherExtension with the name of your project.
+
+* Right-click on the UWP project and select "Reload project". The files LauncherExtension.exe and LauncherExtension.pdb should appear in your UWP project.
+
+We now need to add LauncherExtension.exe as a start up task to the UWP app.
+
+* Right-click on Package.appxmanifest and select "View Code".
+
+* Replace the Package tag with the following xml:
+
+```xml
+<Package 
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" 
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" 
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" 
+  IgnorableNamespaces="uap uap5 mp rescap desktop">
+```
+
+* Add the following xml to the Application tag
+
+ ```xml
+ <Extensions>
+    <uap5:Extension Category="windows.startupTask" Executable="LauncherExtension.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap5:StartupTask TaskId="LauncherExtension" Enabled="true" DisplayName="LauncherExtension" />
+    </uap5:Extension>
+    <desktop:Extension Category="windows.fullTrustProcess" Executable="LauncherExtension.exe" />
+  </Extensions>
+```
+
+* Your Applications section should now look something like this:
+
+```xml
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="App13.App">
+      <uap:VisualElements
+        DisplayName="App13"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="App13"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+      <Extensions>
+        <uap5:Extension Category="windows.startupTask" Executable="LauncherExtension.exe" EntryPoint="Windows.FullTrustApplication">
+          <uap5:StartupTask TaskId="LauncherExtension" Enabled="true" DisplayName="LauncherExtension" />
+        </uap5:Extension>
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="LauncherExtension.exe" />
+      </Extensions>
+    </Application>
+  </Applications>
+ ```
+ 
+ * Add the following capability to the end of the Capabilities section
+ 
+```xml
+<rescap:Capability Name="runFullTrust" />
+```
+
+
+
+
+
+
