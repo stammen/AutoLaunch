@@ -44,5 +44,5 @@ The UWP App installs a Timezone changed SystemTrigger to test launching the UWP 
 * The UWP app should launch into the foreground.
 
 
-#Discussion
+##  Setup Instructions
 
