@@ -186,6 +186,77 @@ We now need to add LauncherExtension.exe as a start up task to the UWP app.
 
 * Restart the computer. Your UWP app should run and come to the foreground after you login. It may take several seconds to appear after login.
 
+###  Modify the UWP App project to support Launching the App from a Background task
 
+We will now add an in-proc background task that will use the Desktop Extension LauncherExtension.exe to launch the UWP App into the foreground. 
 
+* Add the file Utils\Backgoundtask.cs to your UWP project. This will simplify adding a background task to your app.
 
+* Add the following method to MainPage.xaml.cs. This will register a background task with Windows:
+
+```csharp
+
+using Windows.ApplicationModel.Background;
+
+protected override void OnNavigatedTo(NavigationEventArgs e)
+{
+    base.OnNavigatedTo(e);
+    Utils.BackGroundTask.RegisterSystemBackgroundTask(Utils.BackGroundTask.TimezoneTriggerTaskName, SystemTriggerType.TimeZoneChange);
+}
+```
+
+As mentioned above, we will use a TimeZoneChange trigger as it is easy to test. We now need to add an in-proc background task to our app.
+
+* Add the following methods to App.xaml.cs
+
+```csharp
+
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
+using Windows.Foundation.Metadata;
+
+protected async override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+{
+    var name = args.TaskInstance.Task.Name;
+    if(name == Utils.BackGroundTask.TimezoneTriggerTaskName)
+    {
+        await DoLauncherExtension(args.TaskInstance);
+    }
+}
+
+private async Task DoLauncherExtension(IBackgroundTaskInstance taskInstance)
+{
+    if (ApiInformation.IsApiContractPresent("Windows.ApplicationModel.FullTrustAppContract", 1, 0))
+    {
+        BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
+        await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+        deferral.Complete();
+    }
+}
+```
+
+In order to use FullTrustProcessLauncher we need to add a reference to the Windows Desktop Extension for the UWP
+
+* Right-click on References and select Add Reference. 
+
+* Click on the Universal Windows tab. Select Extensions
+
+* Carefully select the Windows Desktop Extension for the UWP (version 10.0.10563). Click on OK.
+
+* We already added the desktop:Extension to the Package.appxmanifest. For reference it looks like this:
+
+ ```xml
+ <Extensions>
+  <desktop:Extension Category="windows.fullTrustProcess" Executable="LauncherExtension.exe" />
+ </Extensions>
+```
+
+* Build and run your app. After your UWP app appears close the app.
+
+* Right-click on the Time display in the Taskbar and select "Adjust Date/Time"
+
+* Turn off "Set time zone automatically"
+
+* Change the Time zone setting to a different time zone
+
+* The UWP app should launch into the foreground.
