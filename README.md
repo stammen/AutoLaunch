@@ -20,6 +20,9 @@ Note: This example will only work in Desktop scenarios
 
 * Press F5 to build and run the solution. 
 
+Note: If the LauncherExtension project won't build because it can't find the reference to Windows, you will need to remove the reference to Windows in the project and then re-add the 
+reference by add a reference and browsing to C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd.
+
 * Check the "Run App at Startup" checkbox option.
 
 * Restart the computer. After you login to your account, the AutoLaunch app should appear. A toast message will also appear.
@@ -40,4 +43,6 @@ The UWP App installs a Timezone changed SystemTrigger to test launching the UWP 
 
 * The UWP app should launch into the foreground.
 
+
+#Discussion
 
