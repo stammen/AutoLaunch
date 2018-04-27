@@ -182,6 +182,8 @@ We now need to add LauncherExtension.exe as a start up task to the UWP app.
 <rescap:Capability Name="runFullTrust" />
 ```
 
+* Build the solution and run the UWP app. Use the Debug/x86 or Debug/x64 configuration.
+
 
 
 
