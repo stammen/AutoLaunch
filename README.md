@@ -21,7 +21,7 @@ Note: This example will only work in Desktop scenarios
 * Press F5 to build and run the solution. 
 
 Note: If the LauncherExtension project won't build because it can't find the reference to Windows, you will need to remove the reference to Windows in the project and then re-add the 
-reference by add a reference and browsing to C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd.
+reference with Add Reference | Browse and browsing to C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd.
 
 * Check the "Run App at Startup" checkbox option.
 
