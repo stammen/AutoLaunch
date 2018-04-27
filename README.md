@@ -14,7 +14,7 @@ Note: This example will only work in Desktop scenarios
 
 * Open AutoLaunch.sln with Visual Studio 2017
 
-* Select the Debug/x86 or Debug/x64 configuration. 
+* Select the Debug/x86 or Debug/x64 configuration. (Release/x86 and Release x/64 also work)
 
 * Set the AutoLaunch project as the StartUp project
 
@@ -39,4 +39,5 @@ The UWP App installs a Timezone changed SystemTrigger to test launching the UWP 
 * Change the Time zone setting to a different time zone
 
 * The UWP app should launch into the foreground.
+
 
