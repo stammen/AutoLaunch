@@ -46,3 +46,51 @@ The UWP App installs a Timezone changed SystemTrigger to test launching the UWP 
 
 ##  Setup Instructions
 
+In order to implement this scenario you will need to do the following
+
+* Create a new Visual C# | Windows Universal | Blank App project (or use your existing UWP project). Set the Minimum platform version to 15063 and the max version to 17025 or 16299.
+
+* Right click on the solution and select Add | New Project...
+
+* Select Visual C# | Windows Classic Desktop | Windows Form App. Name the project LauncherExtension. Select at least .NET framework 4.6.1.
+
+* In the LauncherExtension project, delete the Form1.cs file
+
+* Right-click on the References and select Add Reference. We need to add a few references so we can use some UWP functions.
+
+* Click on the Browse tab and then the Browse button. Browse to the folder C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.15063.0. Make sure you select "All Files (*.*) Select the file Windows.winmd and click Add.
+
+* Click on the Browse tab and then the Browse button. Browse to the folder C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETCore\v4.5. Select the file System.Runtime.WindowsRuntime.dll and click Add.
+
+* Replace the contents of Program.cs with the following
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Windows.ApplicationModel;
+
+namespace DesktopExtension
+{
+    class Program
+    {
+        static private AutoResetEvent resetEvent;
+        static void Main(string[] args)
+        {
+            resetEvent = new AutoResetEvent(false);
+            InvokeForegroundApp();
+            resetEvent.WaitOne();
+        }
+
+        static private async void InvokeForegroundApp()
+        {
+            var appListEntries = await Package.Current.GetAppListEntriesAsync();
+            await appListEntries.First().LaunchAsync();
+            resetEvent.Set();
+        }
+    }
+}
+```
