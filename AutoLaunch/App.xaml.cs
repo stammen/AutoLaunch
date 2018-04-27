@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -70,6 +73,25 @@ namespace AutoLaunch
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
+            }
+        }
+
+        protected async override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            var name = args.TaskInstance.Task.Name;
+            if(name == Utils.BackGroundTask.TimezoneTriggerTaskName)
+            {
+                await DoLauncherExtension(args.TaskInstance);
+            }
+        }
+
+        private async Task DoLauncherExtension(IBackgroundTaskInstance taskInstance)
+        {
+            if (ApiInformation.IsApiContractPresent("Windows.ApplicationModel.FullTrustAppContract", 1, 0))
+            {
+                BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
+                await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+                deferral.Complete();
             }
         }
 

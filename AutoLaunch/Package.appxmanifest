@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap uap5 mp rescap">
+<Package 
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" 
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" 
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" 
+  IgnorableNamespaces="uap uap5 mp rescap desktop">
+  
   <Identity Name="a81c84ed-2e64-4f39-b329-bdd18671a2e1" Publisher="CN=stamm" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="a81c84ed-2e64-4f39-b329-bdd18671a2e1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -24,6 +32,7 @@
         <uap5:Extension Category="windows.startupTask" Executable="LauncherExtension.exe" EntryPoint="Windows.FullTrustApplication">
           <uap5:StartupTask TaskId="LauncherExtension" Enabled="true" DisplayName="LauncherExtension" />
         </uap5:Extension>
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="LauncherExtension.exe" />
       </Extensions>
     </Application>
   </Applications>

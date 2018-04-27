@@ -38,6 +38,7 @@ namespace AutoLaunch
         {
             base.OnNavigatedTo(e);
             startupCheckBox.IsChecked = Utils.UserSettings.GetValueForKey<bool>(Utils.UserSettings.RUN_APP_AT_STARTUP, false);
+            Utils.BackGroundTask.RegisterSystemBackgroundTask(Utils.BackGroundTask.TimezoneTriggerTaskName, SystemTriggerType.TimeZoneChange);
         }
 
         private void StartupCheckBox_Click(object sender, RoutedEventArgs e)
