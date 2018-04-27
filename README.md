@@ -113,7 +113,8 @@ We need to add the LauncherExtension.exe to the AppX created by the UWP project.
 ```xml
   <ItemGroup Label="DesktopExtensions">
     <Content Include="$(SolutionDir)\LauncherExtension\bin\$(Configuration)\LauncherExtension.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+       <Link>desktopextensions\LauncherExtension.exe</Link>
+     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="$(SolutionDir)\LauncherExtension\bin\$(Configuration)\LauncherExtension.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
