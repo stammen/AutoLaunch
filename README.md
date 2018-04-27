@@ -101,6 +101,9 @@ namespace DesktopExtension
 
 We need to add the LauncherExtension.exe to the AppX created by the UWP project. One way to automate this is to do the following:
 
+* Add the LauncherExtension project as a Build Dependency to the UWP project. Right-click on the UWP project and select "Build Dependencies | Project Dependencies" and select the LauncherExtension project.
+
+
 * Right-click on the UWP project and select "Unload project"
 
 * Right-click on the UWP project and select "Edit project"
