@@ -14,8 +14,29 @@ namespace LauncherExtension
         static private AutoResetEvent resetEvent;
         static void Main(string[] args)
         {
+            bool startApp = true;
+            string message = "args: " + args.Count() + "\n";
+            int count = 0;
+            foreach(string s in args)
+            {
+                message += count++ + ":" + s + "\n";
+            }
+
             resetEvent = new AutoResetEvent(false);
-            InvokeForegroundApp();
+            if(args.Count() == 0) // app was launched by system at startup
+            {
+                // check if we should launch the UWP app
+                startApp = Utils.UserSettings.GetValueForKey<bool>(Utils.UserSettings.RUN_APP_AT_STARTUP, true);
+            }
+
+            if (startApp)
+            {
+                InvokeForegroundApp();
+            }
+
+            message += "Start UWP App: " + startApp;
+            Utils.Toasts.ShowToast("LauncherExtension", message);
+
             resetEvent.WaitOne();
         }
 

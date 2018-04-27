@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.ExtendedExecution.Foreground;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -24,9 +22,6 @@ namespace AutoLaunch
     /// </summary>
     sealed partial class App : Application
     {
-        private ExtendedExecutionForegroundSession m_session = null;
-        bool m_isInBackgroundMode = false;
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -35,9 +30,6 @@ namespace AutoLaunch
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            this.Resuming += OnResuming;
-            this.EnteredBackground += App_EnteredBackground;
-            this.LeavingBackground += App_LeavingBackground;
         }
 
         /// <summary>
@@ -45,7 +37,7 @@ namespace AutoLaunch
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -79,36 +71,6 @@ namespace AutoLaunch
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
-
-            await PreventFromSuspending();
-        }
-
-        private async Task PreventFromSuspending()
-        {
-            m_session = new ExtendedExecutionForegroundSession();
-            m_session.Reason = ExtendedExecutionForegroundReason.BackgroundAudio;
-            m_session.Revoked += SessionRevoked;
-            var result = await m_session.RequestExtensionAsync();
-
-            switch (result)
-            {
-                case ExtendedExecutionForegroundResult.Allowed:
-                    break;
-                default:
-                case ExtendedExecutionForegroundResult.Denied:
-                    m_session.Dispose();
-                    m_session = null;
-                    break;
-            }
-        }
-
-        private void SessionRevoked(object sender, ExtendedExecutionForegroundRevokedEventArgs args)
-        {
-            if (m_session != null)
-            {
-                m_session.Dispose();
-                m_session = null;
-            }
         }
 
         /// <summary>
@@ -133,23 +95,6 @@ namespace AutoLaunch
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
-        }
-
-        private async void OnResuming(object sender, object e)
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-            var p = rootFrame.Content as MainPage;
-            //await p.StartRecording();
-        }
-
-        private void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
-        {
-            m_isInBackgroundMode = true;
-        }
-
-        private void App_LeavingBackground(object sender, LeavingBackgroundEventArgs e)
-        {
-            m_isInBackgroundMode = false;
         }
     }
 }

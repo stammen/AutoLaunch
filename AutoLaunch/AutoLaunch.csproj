@@ -94,14 +94,15 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Utils\Toasts.cs">
+      <Link>Toasts.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\UserSettings.cs">
+      <Link>UserSettings.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="audio\AudioInput.cs" />
-    <Compile Include="audio\AudioOutput.cs" />
-    <Compile Include="audio\naudio\IWaveBuffer.cs" />
-    <Compile Include="audio\naudio\WaveBuffer.cs" />
-    <Compile Include="audio\WaveBufferReader.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -117,7 +118,6 @@
     <Content Include="Assets\sample.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\naudio\license.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

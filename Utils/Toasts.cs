@@ -10,13 +10,13 @@ namespace Utils
 {
     sealed class Toasts
     {
-        public static void ShowToast(string message)
+        public static void ShowToast(string title, string message)
         {
             ToastTemplateType toastTemplate = ToastTemplateType.ToastText02;
             XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
 
             XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-            toastTextElements[0].AppendChild(toastXml.CreateTextNode("UpdateTask"));
+            toastTextElements[0].AppendChild(toastXml.CreateTextNode(title));
             toastTextElements[1].AppendChild(toastXml.CreateTextNode(message));
 
             ToastNotification toast = new ToastNotification(toastXml);
