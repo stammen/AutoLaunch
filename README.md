@@ -245,7 +245,7 @@ In order to use FullTrustProcessLauncher we need to add a reference to the Windo
 
 * Click on the Universal Windows tab. Select Extensions
 
-* Carefully select the Windows Desktop Extension for the UWP (version 10.0.10563). Click on OK.
+* Carefully select the Windows Desktop Extension for the UWP (version 10.0.15063). Click on OK.
 
 * We already added the desktop:Extension to the Package.appxmanifest. For reference it looks like this:
 
