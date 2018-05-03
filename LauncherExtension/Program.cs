@@ -35,12 +35,16 @@ namespace LauncherExtension
             if(args.Count() == 0) // app was launched by system at startup
             {
                 // check if we should launch the UWP app
-                startApp = Utils.UserSettings.GetValueForKey<bool>(Utils.UserSettings.RUN_APP_AT_STARTUP, true);
+                startApp = Utils.UserSettings.GetValueForKey<bool>(Utils.UserSettings.RUN_APP_AT_STARTUP, false);
             }
 
             if (startApp)
             {
                 InvokeForegroundApp();
+            }
+            else
+            {
+                resetEvent.Set();
             }
 
             message += "Start UWP App: " + startApp;

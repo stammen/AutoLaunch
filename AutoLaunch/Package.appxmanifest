@@ -29,10 +29,10 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap5:Extension Category="windows.startupTask" Executable="desktopextensions\LauncherExtension.exe" EntryPoint="Windows.FullTrustApplication">
-          <uap5:StartupTask TaskId="LauncherExtension" Enabled="true" DisplayName="desktopextensions\LauncherExtension" />
+        <uap5:Extension Category="windows.startupTask" Executable="DesktopExtensions\LauncherExtension.exe" EntryPoint="Windows.FullTrustApplication">
+          <uap5:StartupTask TaskId="LauncherExtension" Enabled="true" DisplayName="DesktopExtensions\LauncherExtension" />
         </uap5:Extension>
-        <desktop:Extension Category="windows.fullTrustProcess" Executable="LauncherExtension.exe" />
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="DesktopExtensions\LauncherExtension.exe" />
       </Extensions>
     </Application>
   </Applications>

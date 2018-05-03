@@ -156,7 +156,7 @@
   </PropertyGroup>
   <ItemGroup Label="DesktopExtensions">
     <Content Include="$(SolutionDir)\LauncherExtension\bin\$(Configuration)\LauncherExtension.exe">
-      <Link>desktopextensions\LauncherExtension.exe</Link>
+      <Link>DesktopExtensions\LauncherExtension.exe</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="$(SolutionDir)\LauncherExtension\bin\$(Configuration)\LauncherExtension.pdb">

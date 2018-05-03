@@ -113,7 +113,7 @@ We need to add the LauncherExtension.exe to the AppX created by the UWP project.
 ```xml
   <ItemGroup Label="DesktopExtensions">
     <Content Include="$(SolutionDir)\LauncherExtension\bin\$(Configuration)\LauncherExtension.exe">
-       <Link>desktopextensions\LauncherExtension.exe</Link>
+       <Link>DesktopExtensions\LauncherExtension.exe</Link>
      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="$(SolutionDir)\LauncherExtension\bin\$(Configuration)\LauncherExtension.pdb">
@@ -150,7 +150,7 @@ We now need to add LauncherExtension.exe as a start up task to the UWP app.
     <uap5:Extension Category="windows.startupTask" Executable="LauncherExtension.exe" EntryPoint="Windows.FullTrustApplication">
       <uap5:StartupTask TaskId="LauncherExtension" Enabled="true" DisplayName="LauncherExtension" />
     </uap5:Extension>
-    <desktop:Extension Category="windows.fullTrustProcess" Executable="LauncherExtension.exe" />
+    <desktop:Extension Category="windows.fullTrustProcess" Executable="DesktopExtensions\LauncherExtension.exe" />
   </Extensions>
 ```
 
@@ -171,10 +171,10 @@ We now need to add LauncherExtension.exe as a start up task to the UWP app.
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap5:Extension Category="windows.startupTask" Executable="LauncherExtension.exe" EntryPoint="Windows.FullTrustApplication">
+        <uap5:Extension Category="windows.startupTask" Executable="DesktopExtensions\LauncherExtension.exe" EntryPoint="Windows.FullTrustApplication">
           <uap5:StartupTask TaskId="LauncherExtension" Enabled="true" DisplayName="LauncherExtension" />
         </uap5:Extension>
-        <desktop:Extension Category="windows.fullTrustProcess" Executable="LauncherExtension.exe" />
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="DesktopExtensions\LauncherExtension.exe" />
       </Extensions>
     </Application>
   </Applications>
@@ -251,7 +251,7 @@ In order to use FullTrustProcessLauncher we need to add a reference to the Windo
 
  ```xml
  <Extensions>
-  <desktop:Extension Category="windows.fullTrustProcess" Executable="LauncherExtension.exe" />
+  <desktop:Extension Category="windows.fullTrustProcess" Executable="DesktopExtensions\LauncherExtension.exe" />
  </Extensions>
 ```
 
