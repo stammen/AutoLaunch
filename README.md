@@ -8,7 +8,7 @@ Note: This example will only work in Desktop scenarios
 ## Requirements
 
 * Visual Studio 2017 with Windows Universal App Development package installed
-* Windows SDK version 17025 (installed with Visual Studio 2017) or minimum SDK version 15063
+* Windows SDK version 17134 (installed with Visual Studio 2017) or minimum SDK version 15063
 
 ## Running the Sample
 
