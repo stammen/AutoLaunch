@@ -1,7 +1,7 @@
 # Auto Launch UWP App to the Foreground Example
 
 This sample demonstrates how to auto launch and bring a UWP application to the foreground using a Win32 Desktop Extension launcher app.
-The sample also shows how to bring a UWP app to the foreground from an in-proc background tast using the Win32 Desktop Extension launcher app.
+The sample also shows how to bring a UWP app to the foreground from an in-proc background task using the Win32 Desktop Extension launcher app.
 
 Note: This example will only work in Desktop scenarios
 
